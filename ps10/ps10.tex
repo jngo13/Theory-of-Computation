@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc} % replace this line with the one below for your submission
+\usepackage[response]{uvatoc}
+
+\newcommand{\one}{{\sf 1}}
+\newcommand{\zero}{{\sf 0}}
+
+
+\begin{document}
+
+\makeheader
+\submitter {Benjamin (aqn9yv, dlb2ru, ht6xd, iad4de, jmn4fms, lw7jz)}
+
+\makemytitle{Week 10: Have we been reduced to this?}
+
+\directions{
+\collaboration{You should work on the problems yourself, before discussing with
+others, and with your cohorts are your cohort meeting. By the Assessed Cohort Meeting,
+you and all of your cohortmates, should be prepared to present and discuss solutions to
+all of the assigned problems (including the programming problems). In addition to discussing with your cohortmates, you may
+discuss the problems with anyone you want, and use any resources you want except for
+any materials from previous offerings of this course, which are not permitted.
+You should document any resources you use (beyond the provided course materials) in your problem write-up.
+}
+}
+
+\vbox{
+\begin{problem}
+Entranced by Re-Entrances
+\end{problem}
+\directions{
+Use a proof by reduction to show that the function $\mathit{REENTERS}$ defined below is uncomputable. 
+
+\begin{quote}
+    {\bf Input:} A string $w$ that describes a Turing Machine.
+    
+    {\bf Output:} {\bf 1} if the machine described by $w$ would re-enter its start state when executed on the input $\varepsilon$. Otherwise, {\bf 0}.
+\end{quote}
+
+That is, a machine which computes $\mathit{REENTERS}$ outputs {\bf 1} when the input describes a Turing Machine which, when run with the input $\varepsilon$, enters the start state as a result of some transition. 
+
+(Note: For this problem, we want to see that you understand how to do a reduction proof, so even if you can prove it using some other method, you should also be able to explain how to prove it using the proof by reduction method.)
+
+}
+
+\begin{proof}
+
+Assume REENTER is decidable. Then we can construct a Pythonic function REENTER that returns 1 if the machine passed in as input re-enters its start state on input $\varepsilon$ at some point in its execution and 0 otherwise.
+
+Construct a function mPrime as follows:
+
+\begin{verbatim}
+def mPrime(x):
+    M(w, x)
+    if x == "":
+        transition to start state
+\end{verbatim}
+
+Since we assumed that REENTER is computable, we may call it on our constructed mPrime. The FSA associated with function mPrime re-enters its start state if and only if M(w, x) halts, and so calling REENTER on mPrime will accordingly return 1 if and only if M(w,x) halts.
+    
+Thus we have an algorithm to compute HALT(M, w):
+\begin{verbatim}
+if REENTER(mPrime(x)):
+    accept
+else:
+    reject
+\end{verbatim}
+
+Thus we have demonstrated that HALT is reducible to REENTER, and because HALT is uncomputable REENTER is uncomputable as well.
+
+\end{proof}
+
+}
+
+
+\end{document}

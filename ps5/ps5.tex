@@ -1,0 +1,92 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc} % replace this line with the one below for your submission
+\usepackage[response]{uvatoc}
+
+
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 5: Complexity Sells Better}
+\submitter {Benjamin (aqn9yv, dlb2ru, ht6xd, iad4de, jmn4fms, lw7jz)}
+\directions{
+\collaboration{You should work on the problems yourself, before discussing with
+others, and with your cohorts are your cohort meeting. By the Assessed Cohort Meeting,
+you and all of your cohortmates, should be prepared to present and discuss solutions to
+all of the assigned problems (including the programming problems). In addition to discussing with your cohortmates, you may
+discuss the problems with anyone you want, and use any resources you want except for
+any materials from previous offerings of this course, which are not permitted.}
+}
+
+
+
+
+
+\begin{problem}
+Little-$o$
+\end{problem}
+\directions{Another useful notation is ``little-$o$'' which is designed to capture the notion that a function $g$ grows much faster than $f$:
+
+\begin{definition}[$o$]
+A function $f(n): \mathbb{N} \rightarrow \mathbb{R}$ is in $o(g(n))$ for any function $g(n): \mathbb{N} \rightarrow \mathbb{R}$ if and only if for every positive constant $c$, there exists an $n_0 \in \mathbb{N}$ such that:
+$$ \forall n > n_0 . f(n) < cg(n).$$
+\end{definition}
+
+In other words, $f(n) \in o(g(n))$ provided that no matter what positive constant that is chosen for $c$, eventually there comes a point were $c\cdot g(n) > f(n)$ forever more.
+
+Provide a proof for each of the following sub-problems.}
+
+\begin{enumerate}[(a)]
+
+\item Prove that for any function $f$, $f \notin o(f)$.
+
+\begin{proof}
+
+$f \in o(f) \iff \forall c > 0,  \exists n_{0}$ such that $\forall n \in \N$ where $n \textgreater n_{0}, f(n) < c \cdot f(n)$ 
+
+Thus, it is sufficient to provide a counterexample where, for some $c > 0$, $f(n) \geq c \cdot f(n)$.
+
+Choose $c = 1$.
+
+In this case, $\forall n \in \N$, $f(n) < 1 \cdot f(n)$ is never true, since $f(n) = f(n)$.
+
+$\implies \exists c > 0$ such that $f(n) < c \cdot f(n)$ is false
+
+$\implies \exists c > 0$ such that $f(n) \geq c \cdot f(n)$
+
+$\implies f(n) \notin o(f(n))$
+
+\end{proof}
+
+\item Prove that $n \in o(n \log n)$.
+
+\begin{proof}
+Assume $log_{b} n$ has arbitrary base b. Let $c > 0$ an arbitrary constant.
+
+\begin{align*}
+&n \textless c \cdot n \cdot \log(n) \\
+\iff& 1 \textless c \cdot \log(n)\\
+\iff& \frac{1}{c} \textless \log(n)\\
+\iff& b^{\frac{1}{c}} \textless n\\
+\iff& n \textgreater b^{\frac{1}{c}}\\
+\end{align*}
+Thus, choose $n_{0} \in \N$ such that $n_{0} > b^{\frac{1}{c}}$ for arbitrary b, c.
+\begin{align*}
+&\implies \forall n \in \N, n \geq n_{0}, n > b^{\frac{1}{c}}\\
+&\implies \forall n \in \N, n \geq n_{0}, n < c \cdot n \log n, \text{\; as seen above}\\
+&\implies \exists n_{0}, \text {\; such that \;} \forall c > 0, n < c \cdot n \log n\\
+&\implies n \in o(n \log n)\\
+\end{align*}
+
+\end{proof}
+
+\end{enumerate}
+
+
+
+
+
+
+
+\end{document}

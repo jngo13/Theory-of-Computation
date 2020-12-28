@@ -1,0 +1,85 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+% For your submission, you will comment the line above, and uncomment the one below:
+ \usepackage[response]{uvatoc}
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 1: (Un)Natural Numbers --- Write-Up}
+
+\submitter{Benjamin (iad4de, aqn9yv, jmn4fms, ht6xd, lw7jz, dlb2ru)}
+
+% \collaborators{Replace with your collaborators and resources}
+
+\directions{
+This is a template to help with your write-up for Week 1. The actual problem you will write up will be selected by your Cohort Leader at the Assessed Cohort Meeting.
+}
+
+
+\stepcounter{problem}  % skip Problem 1: Cohortuctions
+\stepcounter{problem}  % skip Problem 2: Cohort Namesake
+
+\begin{problem}
+Higher Induction Practice
+\end{problem}
+
+
+\directions{
+Prove that any binary tree of height $h$ has at most $2^{h-1}$ leaves.
+
+Note: We haven't defined a \emph{binary tree} (and the book doesn't). An adequate answer to this question will use the informal understanding of a binary tree which we expect you have entering this class (a tree where each node has 0, 1, or 2 children), but an excellent answer will include a definition of a binary tree and connect your proof to that definition. 
+}
+
+\begin{definition}
+A binary tree is defined as a tree where each node has 0, 1, or 2 children.
+\end{definition}
+
+\newtheorem{theorem}{Theorem}
+% \newtheorem{corollary}{Corollary}[theorem]
+%\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{theorem}
+
+For any binary tree with height h, the number of leaves it has is at most $2^{h-1}$.
+
+\end{theorem}
+
+\begin{proof}
+Consider a binary tree with height $h$. We will prove by induction on $h$.
+
+\paragraph{Base case}
+
+Let us assume as a base case where the height of the tree $h = 0$, then the corresponding binary tree has no nodes, i.e. $n_h = 0$ where $n_h$ denotes the number of leaves at a height $h$. As a result, 
+\begin{align*}
+    2^{h-1} &= 2^{(0)-1} \\
+    &= 2^{-1} \\
+    &= \frac{1}{2}
+\end{align*}
+
+Because $0$ $\leq$ $\frac{1}{2}$, the stated theorem is true for the base case of height $h=0$.
+
+\paragraph{Inductive Step}
+
+Now let us assume that for a tree with height $h$ and number of leaves $n_h$, the tree satisfies the theorem, $n_h \leq 2^{h-1}$. We want to show that the tree with height $h+1$ also satisfies the theorem, $n_{h+1} \leq 2^h$.
+
+Given the definition of a binary tree we know that each node may have up to 2 children. This means $n_{h+1} \leq 2n_h$. But since we assumed $n_h \leq 2^{h-1}$, we would have
+\begin{align*}
+    n_{h+1} &\leq 2 \cdot 2^{h-1}\\
+    &= 2^{(h-1)+1} \\
+    &= 2^h
+\end{align*}
+
+Therefore, we have shown that $n_h \leq 2^{h-1} \implies n_{h+1} \leq 2^h$.
+
+\paragraph{Conclusion}
+
+By taking the base case where height $h=0$, and proving the induction step such that $n_h \leq 2^{h-1} \implies{} n_{h+1} \leq 2^{h}$, we have shown that $\forall h \in \N,  n_h \leq 2^{h-1}$.
+
+
+\end{proof}
+
+\end{document}

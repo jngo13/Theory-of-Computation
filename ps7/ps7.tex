@@ -1,0 +1,74 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc} % replace this line with the one below for your submission
+\usepackage[response]{uvatoc}
+
+
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 7: Loony Automata Tune}
+\submitter {Benjamin (aqn9yv, dlb2ru, ht6xd, iad4de, jmn4fms, lw7jz)}
+
+\directions{
+\collaboration{You should work on the problems yourself, before discussing with
+others, and with your cohorts are your cohort meeting. By the Assessed Cohort Meeting,
+you and all of your cohortmates, should be prepared to present and discuss solutions to
+all of the assigned problems (including the programming problems). In addition to discussing with your cohortmates, you may
+discuss the problems with anyone you want, and use any resources you want except for
+any materials from previous offerings of this course, which are not permitted.}
+}
+
+
+
+\begin{problem}
+NFA Size
+\end{problem}
+\directions{
+Regular expressions are represented by strings of text. Consider that we have a regular expression that is $n$ characters long. 
+
+Show that the language represented by this regular expression can be computed by a NFA with $O(n)$ states (that is, the function from the length of the a regular expression to the number of states needed for an NFA that decides the language represented by that regular expression is in $O(n)$ where $n$ is the length of the input).
+}
+
+
+\newtheorem{theorem}{Theorem}
+
+\begin{theorem}
+The language represented by a regular expression that is $n$ characters long can be computed by a non-deterministic finite automaton of $O(n)$ states.
+\end{theorem}
+
+
+\begin{proof}
+A regular expression consisting only of the empty string can be represented by a NFA of 1 state. The language represented by a regular expression consisting of one literal character can be computed by a NFA of 2 states.
+
+Note that the burden of proof of the following results was achieved in lecture.
+
+Let $R_{1}$ and $R_{2}$ be regular expressions such that $R_{1}$ is $n_{1}$ characters long and computed by an NFA with $n_{1} + c_{1}$ states and $R_{2}$ is $n_{2}$ characters long and computed by an NFA with $n_{2} + c_{2}$ states.
+
+The NFA which computes $(R_{1}|R_{2})$ requires one additional state with $\varepsilon$ transitions to each of the start states for $R_{1}$ and $R_{2}$. Thus $(R_{1}|R_{2})$ requires $n_{1} + n_{2} + c_{1} + c_{2} + 1$ states, where $(R_{1}|R_{2})$ is $n_{1} + n_{2} + 1$ characters long. This can be simplified by stating the Regex $(R_{1}|R_{2})$ which is n bits long is computed in $n + c$ states where $n = n_{1} + n_{2}$ and c is some constant.
+
+The concatenation of $R_{1}$ and $R_{2}$, represented by $R_{1}R_{2}$, is formed by simply adding an epsilon transition from the final states of $R_{1}$ to the start states of $R_{2}$, and thus does not require any additional states besides those used to compute $R_{1}$ and $R_{2}$. Thus for the FSA which computes the expression $R_{1}R_{2}$ of length n requires n states, where $n = n_{1} + n_{2}$.
+
+The Kleene star * adds one character to the regular expression, $R_{1}^*$, and adds a new start state to the NFA for the empty string that has an $\varepsilon$ transition to the original start state. Thus $R_{1}^*$ will be $n_{1} + 1$ characters long, and take $n_{1} + c + 1$ states to compute, where $R_{1}$ took $n_{1} + c$ states.
+
+Any regular expression is a combination of the empty string, literal characters, unions or Kleene stars, and as shown above any regular expression of length n composed of these elements will be computed by an FSA with $n + c$ states, where c is some constant resulting from the operations of alternation and Kleene star.
+
+Let $R$ be a regular expression with $n$ characters, and computed by an FSA with $n+c$ states.
+To show that the number of states of a regular expression, $R$, is in $O(n)$ where n is the number of characters in R, we need to show that for some constant $C$, that the number of states is at most $C*n$.
+
+From our results above we have that the number of states is $n + c$ for some constant $c$, and thus it suffices to show that $n + c \leq C*n, \hspace{1mm} \forall n \geq n_{0}$ for some $n_{0} \in \N$.
+
+Let $n_{0} = c/(C-1)$, then for $n \geq n_{0}$, $n \geq c/(C-1)$
+\\$\implies$ $(C-1) \cdot n \geq c$
+\\$\implies$ $C\cdot n - n \geq c$
+\\$\implies$ $C \cdot n \geq n + c$ $\iff$ $n + c \leq C \codt n$
+\\$\implies$ $n+c \in O(n)$
+\\$\implies$ The number of states required to compute a regular expression is in $O(n)$.
+\end{proof}
+
+
+
+
+
+\end{document}

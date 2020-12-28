@@ -1,0 +1,84 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc}
+% For your submission, you will comment the line above, and uncomment the one below:
+ \usepackage[response]{uvatoc}
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 2: Fine Finite Computation}
+
+\submitter{Benjamin (iad4de, aqn9yv, jmn4fms, ht6xd, lw7jz, dlb2ru)}
+
+% \collaborators{TODO: Replace with any additional collaborators and non-course resources you used}
+
+\directions{
+This is a template to help with your write-up for Week 2. The actual problem you will write up will be selected by your Cohort Leader at the Assessed Cohort Meeting.
+}
+
+\directions{
+
+\subsection{Clone the Problem Set 2 Template Repository}
+
+See the \href{https://uvatoc.github.io/ps/ps1template.pdf}{Week 1 template for directions} on Getting Started with LaTeX. Similarly to Week 1, one member of your cohort should create a copy of the Problem Set 2 repository, by following these steps (we recommend doing this together, with the one creating the repository sharing her screen for everyone to follow along):
+
+\begin{enumerate}
+\item Download the Problem Set 2 template from: \url{https://uvatoc.github.io/ps/ps2.zip}
+\item In Overleaf, click on \keyword{Create First Project} or \keyword{New Project} in Overleaf and select \keyword{Upload Project} from the menu.
+\item Click \keyword{Select a .zip file} and then select the \keyword{ps2.zip} file you downloaded in step 1.
+\item Share the repository with your cohortmates by clicking the "Share" button at the top right of the overleaf window, and entering your cohortmates email addresses in the sharing form.
+\end{enumerate}
+
+Click on \keyword{ps2.tex} to see the LaTeX source for this file, which is the file you will modify to prepare your solution. The first thing you should do in \keyword{ps2.tex} is set up your cohort name as the author of the submission by replacing the line, \texttt{\textbackslash submitter\{TODO: your name\}}, with your the name of your cohort (e.g., \texttt{\textbackslash submitter\{Cohort Hopper (Ada Lovelace, Don Knuth)\}}). For the list of cohort members, this should usually be everyone in your cohort, but if someone did not contribute during the week, they should not be included in your submission list (and should have informed us about their absence separately).
+
+Before submitting your \keyword{ps2.pdf} file, also remember to:
+\begin{itemize}
+\item List your collaborators and resources, replacing the TODO in {\texttt{\textbackslash collaborators\{TODO: replace ...\}}} with your collaborators and resources. You do not need to include
+
+\item Replace the second line in \keyword{ps2.tex}, \texttt{\textbackslash usepackage\{uvatoc\}} with \texttt{\textbackslash usepackage[response]\{uvatoc\}} so the directions do not appear in your final PDF. You can do this by using the LaTeX comment token, {\texttt{\%}}. The rest of the line after a {\texttt{\%}} is treated as a comment. You'll notice after you to this, when you Recompile the document, most of it will disappear (everything in \keyword{\textbackslash directions} is left out, so only your solution will appear in the submitted document).
+\end{itemize}
+}
+
+
+
+\begin{problem}
+Compare $n$ bit numbers \rm (Exercise 3.2 in TCS book)
+\end{problem}
+
+\directions{
+Prove that there exists a constant $c$ such that for every $n$ there is a Boolean circuit (using only \emph{AND}, \emph{OR}, and \emph{NOT} gates) $C$ of at most $c\cdot n$ gates that computes the function $CMP_{2n}:\{0,1\}^{2n} \rightarrow \{0,1\}$ such that $CMP_{2n}(a_0\cdots a_{n-1} b_0 \cdots b_{n-1})=1$ if and only if the number represented by $a_0 \cdots a_{n-1}$ is larger than the number represented by $b_0 \cdots b_{n-1}$.
+
+In other words, generalize the previous problem to describe how to compare $n$-bit numbers for any specific value $n$ using \emph{AND}, \emph{OR}, and \emph{NOT}. The total number of gates used should be upper bounded by some constant $c$ times $n$ (i.e. asymptotically linear).}
+
+\newtheorem{theorem}{Theorem}
+% \newtheorem{corollary}{Corollary}[theorem]
+%\newtheorem{lemma}[theorem]{Lemma}
+
+\begin{theorem}
+%\ fix formatting for CMP function
+For any $CMP_{2n}$ method, there exists a constant $c$ where for every $n$ there is a Boolean circuit (using AND, OR, and NOT gates) with at most $c \cdot n$ gates and computes $CMP_{2n} : \{0, 1\}^{2n} \rightarrow \{0,1\}$ such that $CMP_{2n}(a_0 ... a_{n-1}, b_0 ... b_{n-1}) = 1$ if and only if $a_0 ... a_{n-1} > b_0 ... b_{n-1}$.
+\end{theorem}
+
+\begin{proof} Consider a Boolean circuit that compares two $n$-bit numbers. We will prove by induction on $n$.
+
+\paragraph{Base Case} if $n=1$, $CMP_{2n} (a,b) = AND(a, NOT(b))$. There are 2 gates required, so any arbitrary value of $c$ bigger than 2 would satisfy the theorem that the number of gates required is smaller than $c \cdot n$.
+
+\paragraph{Induction} Assume that there exists a number c such that the number of gates required to compute $CMP_{2n}$ is less than $c \cdot n$. We want to show $CMP_{2(n+1)}$ requires less than or equal to $c(n+1) = c \cdot n + c$ gates.
+
+We implement $CMP_{2(n+1)}$ by comparing the most significant bits, $a^{*}$ and $b^{*}$, such that $CMP_{2(n+1)}$ returns 1 if $a^{*} > b^{*}$, and returns $CMP_{2n}$ if $a^{*} = b^{*}$. Therefore, $CMP_{2(n+1)}$ can be computed as
+\begin{align*}
+    OR(&AND(a^*, NOT(b^*)), \\
+    &AND(XNOR(a^*, b^*), CMP_{2n})),
+\end{align*}
+where $XNOR(a, b)$ is expressed as
+\begin{equation*}
+    OR(AND(a, b), AND(NOT(a), NOT(b))
+\end{equation*}
+using AON. Therefore $CMP_{2(n+1)}$ takes 9 more gates than $CMP_{2n}$. Since $CMP_{2n}$ requires at most $c \cdot n$ gates, $CMP_{2(n+1)}$ would require at most $c \cdot n + 9$ gates, which is less than or equal to $c (n + 1)$ for any arbitrary number of $c$ larger or equal to 9.
+
+\paragraph{Conclusion} By proving in the base case that there exists a c such that the number of gates of $CMP_{2 \cdot (1)}$ is bounded by $c \cdot n$, and by showing that the existence of a c bounding the number of gates for $CMP_{2n}$ implies an upper bound on $CMP_{2(n+1)}$, we have sufficiently shown that there exists a c such that the number of gates to compute $CMP_{2n}$ is less than $c \cdot n$ for all $n \in \N^+$.
+
+\end{proof}
+ 
+\end{document}

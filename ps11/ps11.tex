@@ -1,0 +1,76 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc} % replace this line with the one below for your submission
+\usepackage[response]{uvatoc}
+
+\newcommand{\one}{{\sf 1}}
+\newcommand{\zero}{{\sf 0}}
+
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 11: The Penultimate Problem Party }
+\submitter {Benjamin (aqn9yv, dlb2ru, ht6xd, iad4de, jmn4fms, lw7jz)}
+
+\directions{
+\collaboration{You should work on the problems yourself, before discussing with
+others, and with your cohorts are your cohort meeting. By the Assessed Cohort Meeting,
+you and all of your cohortmates, should be prepared to present and discuss solutions to
+all of the assigned problems (including the programming problems). In addition to discussing with your cohortmates, you may
+discuss the problems with anyone you want, and use any resources you want except for
+any materials from previous offerings of this course, which are not permitted.
+You should document any resources you use (beyond the provided course materials) in your problem write-up.
+}
+}
+
+\begin{problem}
+TAUT
+\end{problem}
+\directions{
+
+\begin{definition}[DNF]
+\rm
+We say that a formula is in disjunctive normal form (DNF for short) if it is
+an OR of ANDs of variables or their negations. E.g. $(x_7 \wedge \overline{x_{22}} \wedge x_{15}) \vee (x_{37} \wedge x_{22} \wedge \overline{x_7})$ is in DNF. We say that it is k-DNF if there are exactly k variables per clause (group of variables combined with AND).
+\end{definition}
+
+We know that 3-SAT is in \emph{NP-Complete}, where 3-SAT requires determining whether there exists at least one way to assign Boolean values to each variable in a 3-CNF formula so that the formula evaluates to True.
+
+The 3-TAUT problem requires determining whether \emph{every} assignment causes a 3-DNF formula to evaluate to True (i.e., no assignments will cause the formula to evaluate to False). 
+
+\begin{enumerate}
+    \item Show that 3-TAUT is in \emph{NP-Hard}. 
+    \item 3-TAUT is not known to belong to \emph{NP}. Give an intuitive reason why it is difficult to show that 3-TAUT belongs to \emph{NP}.
+\end{enumerate}
+}
+
+\begin{proof}
+
+Given that 3-SAT is NP-complete, if we can reduce 3-SAT to 3-TAUT, that is, provide an algorithm to solve 3-SAT using 3-TAUT, then we know by the transitive property of polynomial-reduction that 3-TAUT is NP-Hard. 
+
+In formal terms, given an arbitrary $F \in NP, F \leq_{p} 3\text{-}SAT$ by definition of NP-Complete. 
+
+If $3\text{-}SAT \leq_{p} 3\text{-}TAUT$, then by transitivity $F \leq_{p} 3\text{-}SAT \leq_{p} 3\text{-}TAUT\in NP$ which implies $3\text{-}TAUT$ is NP-Hard by definition.
+
+Thus, it is sufficient to show the reduction of $3\text{-}SAT$ to $3\text{-}TAUT$.
+
+Let x be an arbitrary 3-CNF. That is, x consists of the logical AND of clauses, each of which consists of the logical OR of 3 terms. We can then write x in the form $x = (x_1 \lor x_2 \lor x_3) \land (x_4 \lor x_5 \lor x_6) \land ...$ such that $x_i$ is a variable whose value is either 0 or 1 for every value i.
+
+The problem $3\text{-}SAT$ consists of determining if there exists a choice of values for each variable in the 3-CNF such that evaluating x returns true. Thus, $3\text{-}SAT(x) = 1$ if and only if there exists such a choice of values, and 0 otherwise.
+
+In the style of reduction, we assume that there exists some implementation of $3\text{-}TAUT$ such that for any 3-DNF $y$, we can evaluate $3\text{-}TAUT(y)$. If we can solve $3\text{-}SAT$ in terms of this $3\text{-}TAUT$ function, then we have proven that $3\text{-}SAT \leq_{p} 3\text{-}TAUT$.
+
+Define $x'$ to be the complement of an arbitrary 3-CNF $x$ as defined above. Then, $x' = \neg((x_1 \lor x_2 \lor x_3) \land ...)$ which by DeMorgan's Law equals $(x_1' \land x_2' \land x_3') \lor (x_4' \land x_5' \land x_6') \lor...$ which is clearly of the form 3-DNF. Thus, given 3-CNF $x$ we know $x'$ is a 3-DNF, and we know $3\text{-}TAUT$ is defined for any 3-DNF, such that we may compute $3\text{-}TAUT(x')$.
+
+If $3\text{-}TAUT(x') = 1$ then all possible assignments to the variables make the complement of the original formula true. Then there does not exist an assignment of variables that would make the original formula true, and $3\text{-}SAT(x) = 0$.
+
+Else if $3\text{-}TAUT(x') = 0$ then there is at least one possible assignment of variables that makes the complement of the original formula false. Then there exists at least one assignment of variables that would make the original formula true, and $3\text{-}SAT(x) = 1$.
+
+Thus we have $3\text{-}SAT$ in terms of $3\text{-}TAUT$, that is $3\text{-}SAT(x) = \neg(3\text{-}TAUT(x'))$ for arbitrary 3-CNF x.
+
+Conclusion: Since the conversion of a 4-CNF to a 4-DNF can certainly be done in polynomial time and this conversion allows the computation of $3\text{-}SAT$ using $3\text{-}TAUT$, then $3\text{-}SAT$ can be reduced to $3\text{-}TAUT$. Because $3\text{-}SAT$ is known to be NP-Hard then, as shown above, by the transitivity of $\leq_{p}$ $3\text{-}TAUT$ is also NP-Hard.
+
+\end{proof}
+
+\end{document}

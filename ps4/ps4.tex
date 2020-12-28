@@ -1,0 +1,121 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc}
+% For your submission, you will comment the line above, and uncomment the one below:
+\usepackage[response]{uvatoc}
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 4: Eval}
+
+\submitter{Benjamin (aqn9yv, dlb2ru, ht6xd, iad4de, jmn4fms, lw7jz)}
+
+% \collaborators{\href{https://en.wikipedia.org/wiki/Aleph_number\#Continuum_hypothesis}{\underline{Continuum Hypothesis, Wikipedia}}}
+
+\directions{
+This is a template to help with your write-up for Week 3. The actual problem you will write up will be selected by your Cohort Leader at the Assessed Cohort Meeting.
+}
+
+\directions{
+
+\subsection{Clone the Problem Set 4 Template Repository}
+
+See the \href{https://uvatoc.github.io/docs/ps1template.pdf}{Week 1 template for directions} on Getting Started with LaTeX. Similarly to Week 1, one member of your cohort should create a copy of the Problem Set 4 repository, by following these steps (we recommend doing this together, with the one creating the repository sharing her screen for everyone to follow along):
+
+\begin{enumerate}
+\item Download the Problem Set 4 template from: \url{https://uvatoc.github.io/docs/ps4template.zip}
+\item In Overleaf, click on \keyword{Create First Project} or \keyword{New Project} in Overleaf and select \keyword{Upload Project} from the menu.
+\item Click \keyword{Select a .zip file} and then select the \keyword{ps4template.zip} file you downloaded in step 1.
+\item Share the repository with your cohortmates by clicking the "Share" button at the top right of the overleaf window, and entering your cohortmates email addresses in the sharing form.
+\end{enumerate}
+
+Click on \keyword{ps4.tex} to see the LaTeX source for this file, which is the file you will modify to prepare your solution. The first thing you should do in \keyword{ps4.tex} is set up your cohort name as the author of the submission by replacing the line, \texttt{\textbackslash submitter\{TODO: your name\}}, with your the name of your cohort (e.g., \texttt{\textbackslash submitter\{Cohort Hopper (Ada Lovelace, Don Knuth)\}}). For the list of cohort members, this should usually be everyone in your cohort, but if someone did not contribute during the week, they should not be included in your submission list (and should have informed us about their absence separately).
+
+Before submitting your \keyword{week4.pdf} file, also remember to:
+\begin{itemize}
+\item List your collaborators and resources, replacing the TODO in {\texttt{\textbackslash collaborators\{TODO: replace ...\}}} with your collaborators and resources. You do not need to include
+
+\item Replace the second line in \keyword{ps4.tex}, \texttt{\textbackslash usepackage\{uvatoc\}} with \texttt{\textbackslash usepackage[response]\{uvatoc\}} so the directions do not appear in your final PDF. You can do this by using the LaTeX comment token, {\texttt{\%}}. The rest of the line after a {\texttt{\%}} is treated as a comment. You'll notice after you to this, when you Recompile the document, most of it will disappear (everything in \keyword{\textbackslash directions} is left out, so only your solution will appear in the submitted document).
+\end{itemize}
+}
+
+\vbox{
+\begin{problem}
+Finite vs. Infinite functions (briefly on section 3)
+\end{problem}
+\directions{
+To fully appreciate this week's content, it is critical that you understand the difference between finite and unbounded functions. \href{https://introtcs.org/public/lec_00_1_math_background.html}{\em TCS Section 1.7} defines a \emph{finite function} to have a fixed-sized input and an \emph{infinite function} to have unbounded input. 
+
+Check your understanding of the difference between these two by answering (with proof) the following questions:
+
+\begin{itemize}
+\item What is the cardinality of the set of all finite functions of the form $\{0,1\}^n \rightarrow \{0,1\}$?
+    
+\item What is the cardinality of the set of all finite functions with binary inputs?
+    
+\item What is the cardinality of the set of all infinite functions with binary inputs?
+\end{itemize}
+
+
+}}
+% should we do aleph0 ^ 2 ^ aleph0 > aleph0?
+% i thought he said it was aleph 1
+% this probably isn't what he described
+% Assuming the function takes countably infinite inputs and has countably infinite outputs, i.e., $n = \aleph_0$ and $m = \aleph_0$, then the cardinality of the set of all functions of this kind is ${\aleph_0}^{2^{\aleph_0}}$.
+
+
+The cardinality of the set of all infinite functions with binary input is uncountably infinite. This cardinality can be proven by using Cantor's diagonalization argument. In order to use Cantors's diagonalization, the functions must be labeled or enumerated in a way that they can be mapped to real numbers. 
+
+%maybe:
+% i agree
+Imagine each infinite function can be represented as an infinite binary string of possible inputs followed by their corresponding output(s). Begin enumerating these strings. Then Cantor's diagonal argument can be used to show that when you change the $n^{th}$ value in the $n^{th}$ string, a representation of a new function is produced that could not have been included in the enumeration, that the $n^{th}$ value of that function is different than the value in the same location of the $n^{th}$ function. This shows how the infinite functions cannot be counted. 
+
+% These functions with unbounded binary input are of the form $f:\{0,1\}^{n} \rightarrow B$ where $n \in \N$ and B is the set of outputs whose elements may be anything you like. If the set of functions of that form when limited to outputs b $\in \{0,1\}$, call it A, is countably infinite, there exists a bijection from A $\rightarrow \N$. 
+
+\stepcounter{problem}  % skip Problem 2
+\stepcounter{problem}  % skip Problem 3
+\stepcounter{problem}  % skip Problem 4
+\stepcounter{problem}  % skip Problem 5
+
+\begin{problem}
+Equal to Constant Function (TCS exercise 5.3 and \href{https://youtu.be/5RbgIcs0bEw}{\emph{Defining EVAL} video)}
+\end{problem}
+\directions{For every $k\in \mathbb{N}$ show that there exists a NAND-CIRC straightline program of no more than $c\cdot k$ lines (where $c$ is a constant) which computes $\mathtt{EQUALS}_{x'}: \{0,1\}^k \rightarrow \{0,1\}$ where $\mathtt{EQUALS}_{x'}(x) = 1$ if and only if $x =x'$.}
+
+\begin{definition}
+$EQUALS_{x'} : \{0,1\}^{k} \rightarrow \{0,1\}$ where $EQUALS_{x'}(x) = 1$ if and only if $x = x'$.
+\end{definition}
+
+\begin{proof} 
+We will proceed by induction on the number of inputs $k$ of the function $EQUALS_{x'}$ 
+
+\paragraph{Base Case}
+For k $\in \N^+$ let $k=1$.
+For two single-bit numbers $a, b \in \{0,1\}$, $a = b$ $\iff$ XNOR(a,b) = 1. XNOR requires 5 NAND gates, so for $k=1$ we have a NAND-CIRC straightline program of no more than $c\cdot k$ lines when $c = 5$.
+\paragraph{Inductive Hypothesis}
+Assume there’s a constant c such that $c \cdot k$ is an upper bound on the number of gates required to compute $EQUALS_{x'} \{0,1\}^{k}$. 
+
+Consider $EQUALS_{x'} \{0,1\}^{k+1}$.
+
+If $x_{k}$ and $x_{k}'$ are numbers with k bits, in order to compute $EQUALS_{x_{k+1}'}(x_{k+1})$ where $x_{k+1}'$ and $x_{k+1}$ have one additional bit we must:
+\begin{enumerate}
+    \item compute $EQUALS_{x_{k}'}(x_{k})$
+    \item compare the additional $(k+1)^{th}$ bits using a single XNOR-gate
+    \item combine parts 1. and 2. to check the overall equality using an additional AND-gate. 
+\end{enumerate}
+Thus, $EQUALS_{x_{k+1}'}(x_{k+1})$ requires the number of NAND-gates from $EQUALS_{x_{k}'}(x_{k})$, 5 NAND-gates for XNOR, and 3 NAND-gates for AND.
+
+
+
+From our assumption we know $EQUALS_{x_{k}'}(x_{k})$ is bounded above by $c \cdot k$ NAND-gates, so $EQUALS_{x_{k+1}'}(x_{k+1})$ will be bounded above by $c \cdot k$ + 8.
+
+Let’s say this number of additional lines is less than or equal to the constant c, i.e. $c \geq 8$. Then the number of lines to compute $EQUALS_{x_{k+1}'}(x_{k+1})$ is at most $c \cdot k + c = c(k+1)$.
+
+\paragraph{Conclusion}
+We know that for $k = 1$, $\exists$ a constant $c$ such that a NAND-CIRC program which computes $EQUALS_{x'}(x)$ requires no more than $c \cdot k$ lines. We also know that a NAND-CIRC program P which $EQUALS_{x_{k}'}(x_{k})$ is bounded by at most $c \cdot k$ lines implies a program P' which computes $EQUALS_{x_{k+1}'}(x_{k+1})$ is bounded by $c(k+1)$ lines, for $c \geq 8$.
+So by the principle of induction, $\forall$ NAND-CIRC programs P which compute $EQUALS_{x'}(x)$, $\exists$ a constant $c$ such that the number of lines in P is no more than $c \cdot k$ $\forall k \in \N^+$.
+
+\end{proof}
+
+\end{document}

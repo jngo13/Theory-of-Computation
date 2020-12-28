@@ -1,0 +1,55 @@
+\documentclass[11pt]{article}
+%\usepackage{uvatoc} % replace this line with the one below for your submission
+\usepackage[response]{uvatoc}
+
+\newcommand{\one}{{\sf 1}}
+\newcommand{\zero}{{\sf 0}}
+
+
+\begin{document}
+
+\makeheader
+
+\makemytitle{Week 9: Is ``Heterological'' Heterological?}
+\submitter {Benjamin (aqn9yv, dlb2ru, ht6xd, iad4de, jmn4fms, lw7jz)}
+
+\directions{
+\collaboration{You should work on the problems yourself, before discussing with
+others, and with your cohorts are your cohort meeting. By the Assessed Cohort Meeting,
+you and all of your cohortmates, should be prepared to present and discuss solutions to
+all of the assigned problems (including the programming problems). In addition to discussing with your cohortmates, you may
+discuss the problems with anyone you want, and use any resources you want except for
+any materials from previous offerings of this course, which are not permitted.
+You should document any resources you use (beyond the provided course materials) in your problem write-up.
+}
+}
+
+\stepcounter{problem} % skip problem 1
+\stepcounter{problem} % skip problem 2
+\stepcounter{problem} % skip problem 3
+\stepcounter{problem} % skip problem 4
+
+\begin{problem}
+Accepts in $k$ steps
+\end{problem}
+
+Consider the Language:
+\[A_k = \{M | M\text{ is the description of a no-input Turing Machine which accepts in $k$ or fewer steps }\}. \]
+
+Show that $A_k$ is computable for every choice of $k \in \mathbb{N}$.
+
+\begin{proof}
+
+We prove the statement by proving that it is possible to construct a Turing Machine M for any k, such that M computes $A_{k}$ for that k.
+
+We construct the machine in two parts, the simulation machine and the counting machine. The two machines are each DFAs (with a shared tape) and collectively constitutes a NFA, which could be converted into an even larger DFA. The simulation machine simulates the ACCEPTS function, and the counting machine functions as a counter program that counts the number of steps the simulation machine have been executing. If the counting machine counts to k while the simulation machine has not finished its execution, the counting machine will break the execution and return false.
+
+The construction of the simulation machine is assumed to be available from lecture.
+
+We construct the counting machine using k states, each represent a step taken on the simulating machine. The counting machine take any character in the alphabet as input to transition from the $i^{th}$ state to the $(i+1)^{th}$ state for any $i < k$. If the counting machine reaches its final state, and the simulation machine hasn't provided an output yet, then the counting machine will halt the entire machine and return false. If the simulating machine returns a value before k steps, the combined machine will take the output of the simulating machine as the output of itself.
+
+Thus we have constructed a machine that computes the given language, also provided that it will halt in k steps.
+
+\end{proof}
+
+\end{document}
